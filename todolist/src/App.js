@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 
 function App(){
 
   const [tarefas, setTarefas] = useState([]);
   const [input, setInput] = useState("");
+  const totalTarefas = useMemo(() => tarefas.length, [tarefas]);
 
   useEffect(() => {
     localStorage.setItem('tarefas', JSON.stringify(tarefas));
@@ -30,6 +31,8 @@ function App(){
         ) )}
       </ul>
 
+        <strong>Você tem {totalTarefas} tarefas!</strong>
+        <br/>
       <input type='text' value={input} onChange={e => setInput(e.target.value)}></input>
       <button type='button' onClick={adicionarTarefa}>Adicionar</button>
     </div>
